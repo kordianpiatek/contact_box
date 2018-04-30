@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Contact: {{ person.name }} {{ person.lastname }}{% endblock %}
+{% block body %}
+    <div class="navbar">
+        <a href="{{ path('home') }}">Home</a>
+        <a href="{{ path('new_person') }}">Add</a>
+        {#<a href="{{ path('search') }}">Search</a>#}
+
+    </div>
+    <div>
+            <div>{{ person.name }} {{ person.lastname }}</div><br>
+            <div>{{ person.personDescription }}</div>
+    </div>
+{% endblock %}

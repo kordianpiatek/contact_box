@@ -1,0 +1,28 @@
+{% extends "base.html.twig" %}
+
+{% block title %}All contacts{% endblock %}
+
+{% block body %}
+    <div class="navbar">
+        <a href="{{ path('home') }}">Home</a>
+        <a href="{{ path('new_person') }}">Add</a>
+        {#<a href="{{ path('search') }}">Search</a>#}
+
+    </div>
+    {% for person in people %}
+        <div>
+            <td>
+                <a href="{{ path('profile',{'id': person.id}) }}"
+                   class="list">{{ person.name }} {{ person.lastname }}</a>
+            </td>
+            <td>
+                <a href="{{ path('edit',{'id' : person.id}) }}" class="edit">edit</a>
+            </td>
+            <td>
+                <a href="{{ path('delete',{'id' : person.id}) }}" class="delete">delete</a>
+            </td>
+        </div>
+    {% else %}
+        <div> no contacts</div>
+    {% endfor %}
+{% endblock %}

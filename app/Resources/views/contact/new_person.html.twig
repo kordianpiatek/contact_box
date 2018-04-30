@@ -1,0 +1,32 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Add new person{% endblock %}
+
+{% block body %}
+    <div class="navbar">
+        <a href="{{ path('home') }}">Home</a>
+        <a href="{{ path('new_person') }}">Add</a>
+        {#<a href="{{ path('search') }}">Search</a>#}
+
+    </div>
+
+    <div class="new_person">
+        <h1>Add new person:</h1>
+        {{ form_start(form) }}
+        <div class="form">
+            {{ form_label(form.name) }}
+            {{ form_widget(form.name) }}
+        </div>
+        <div class="form">
+            {{ form_label(form.lastname) }}
+            {{ form_widget(form.lastname) }}
+        </div>
+        <div class="form">
+            {{ form_label(form.personDescription) }}
+            {{ form_widget(form.personDescription) }}
+        </div>
+        {{ form_widget(form) }}
+        {{ form_end(form) }}
+    </div>
+
+{% endblock %}
