@@ -3,19 +3,18 @@
 {#{% block title %}Edit: {{ person.name }} {{ person.lastname }} {% endblock %}#}
 
 {% block body %}
-<div class="modify">
     <div class="navbar">
         <a href="{{ path('home') }}">Home</a>
         <a href="{{ path('new_person') }}">Add</a>
         {#<a href="{{ path('search') }}">Search</a>#}
 
     </div>
+<div class="modify">
     <br><br><br>
     <div class="navedit">
-        {#<a href="{{ path('modify') }}">Home</a>#}
-        {#<a href="{{ path('address-modify') }}">Add</a>#}
-        {#<a href="{{ path('email-modify') }}">Add</a>#}
-        {#<a href="{{ path('phone-modify') }}">Add</a>#}
+        <a href="{{ path('address_edit',{'id' : person.id}) }}">Address</a>
+        <a href="{{ path('email_edit',{'id' : person.id}) }}">Email</a>
+        <a href="{{ path('phone_edit',{'id' : person.id}) }}">Phone Number</a>
 
     </div>
     <br><br><br>
@@ -37,54 +36,5 @@
     {{ form_widget(modifyForm) }}
     {{ form_end(modifyForm) }}
 --------------------------------------------------------------------------------------
-    <h2>Address</h2>
-    {{ form_start(addressForm) }}
-    <div class="form">
-    {{ form_label(addressForm.city) }}
-    {{ form_widget(addressForm.city) }}
-    </div>
-    <div class="form">
-    {{ form_label(addressForm.street) }}
-    {{ form_widget(addressForm.street) }}
-    </div>
-    <div class="form">
-    {{ form_label(addressForm.houseNumber) }}
-    {{ form_widget(addressForm.houseNumber) }}
-    </div>
-    <div class="form">
-    {{ form_label(addressForm.apartamentNumber) }}
-    {{ form_widget(addressForm.apartamentNumber) }}
-    </div>
-    {{ form_widget(addressForm) }}
-    {{ form_end(addressForm) }}
-
-    --------------------------------------------------------------------------------------
-    <h2>Email</h2>
-    {{ form_start(emailForm) }}
-    <div class="form">
-    {{ form_label(emailForm.emailAddress) }}
-    {{ form_widget(emailForm.emailAddress) }}
-    </div>
-    <div class="form">
-    {{ form_label(emailForm.type) }}
-    {{ form_widget(emailForm.type) }}
-    </div>
-    {{ form_widget(emailForm) }}
-    {{ form_end(emailForm) }}
-
-    --------------------------------------------------------------------------------------
-
-    <h2>Phone Number</h2>
-    {{ form_start(phoneNumberForm) }}
-    <div class="form">
-    {{ form_label(phoneNumberForm.number) }}
-    {{ form_widget(phoneNumberForm.number) }}
-    </div>
-    <div class="form">
-    {{ form_label(phoneNumberForm.type) }}
-    {{ form_widget(phoneNumberForm.type) }}
-    </div>
-    {{ form_widget(phoneNumberForm) }}
-    {{ form_end(phoneNumberForm) }}
 </div>
 {% endblock %}

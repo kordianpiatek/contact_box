@@ -2,7 +2,6 @@
 
 namespace ContactBundle\Controller;
 
-use ContactBundle\ContactBundle;
 use ContactBundle\Entity\Address;
 use ContactBundle\Entity\Email;
 use ContactBundle\Entity\Groups;
@@ -70,9 +69,6 @@ class PersonController extends Controller
     public function modifyPersonGetAction($id)
     {
         $person = $this->getDoctrine()->getRepository(Person::class)->findOneBy(['id' => $id]);
-        $address = new Address();
-        $email = new Email();
-        $phoneNumber = new PhoneNumber();
         $modifyForm = $this->createFormBuilder($person)
             ->setMethod('POST')
             ->add('name', TextType::class)
@@ -81,34 +77,71 @@ class PersonController extends Controller
             ->add('save', SubmitType::class)
             ->getForm();
 
+        return $this->render('contact/edit_profile.html.twig', array('modifyForm' => $modifyForm->createView(),
+            'person' => $person));
+    }
+
+    /**
+     * @Route("/{id}/modify_address" , name="address_edit" , methods={"GET"} )
+     */
+    public function modifyAddressGetAction($id)
+    {
+        $person = $this->getDoctrine()->getRepository(Person::class)->findOneBy(['id' => $id]);
+        $address = new Address();
         $addressForm = $this->createFormBuilder($address)
             ->setMethod('POST')
             ->add('city',TextType::class)
             ->add('street', TextType::class)
             ->add('houseNumber', NumberType::class)
             ->add('apartamentNumber', NumberType::class)
+            ->add('person_id',$person->getId())
             ->add('save', SubmitType::class, ['attr' => ['class' => 'button']])
             ->getForm();
 
+        return $this->render('contact/edit_address.html.twig', array('addressForm' => $addressForm->createView(),
+            'person' => $person));
+    }
+
+    /**
+     * @Route("/{id}/modify_email" , name="email_edit" , methods={"GET"} )
+     */
+    public function modifyEmailGetAction($id)
+    {
+        $person = $this->getDoctrine()->getRepository(Person::class)->findOneBy(['id' => $id]);
+        $email = new Email();
         $emailForm = $this->createFormBuilder($email)
             ->setMethod('POST')
             ->add('emailAddress',TextType::class)
             ->add('type', TextType::class)
+            ->add('person_id',$person->getId())
             ->add('save', SubmitType::class, [ 'attr' => ['class' => 'button']])
             ->getForm();
 
+        return $this->render('contact/edit_email.html.twig', array('emailForm' => $emailForm->createView(),
+            'person' => $person));
+
+    }
+
+    /**
+     * @Route("/{id}/modify_phone" , name="phone_edit" , methods={"GET"})
+     */
+    public function modifyPhoneGetAction($id)
+    {
+        $person = $this->getDoctrine()->getRepository(Person::class)->findOneBy(['id' => $id]);
+        $phoneNumber = new PhoneNumber();
         $phoneNumberForm = $this->createFormBuilder($phoneNumber)
             ->setMethod('POST')
             ->add('number', NumberType::class)
             ->add('type', TextType::class)
+            ->add('person_id',$person->getId())
             ->add('save', SubmitType::class, ['attr' => ['class' => 'button']])
             ->getForm();
 
-        return $this->render('contact/edit_profile.html.twig', array('modifyForm' => $modifyForm->createView(),
-            'addressForm' => $addressForm->createView(),
-            'emailForm' => $emailForm->createView(),
-            'phoneNumberForm' => $phoneNumberForm->createView()));
+        return $this->render('contact/edit_phone.html.twig', array('phoneForm' => $phoneNumberForm->createView(),
+            'person' => $person));
+
     }
+
 
 
     // ALL MODIFIES POST
@@ -119,12 +152,7 @@ class PersonController extends Controller
     public function modifyPersonPostAction(Request $request , $id)
     {
         $person = $this->getDoctrine()->getRepository(Person::class)->findOneBy(['id' => $id]);
-        $address = new Address();
-        $email = new Email();
-        $phoneNumber = new PhoneNumber();
-        $personId = $person->getId();
 
-        // Person
         $modifyForm = $this->createFormBuilder($person)
             ->setMethod('POST')
             ->add('name', TextType::class, ['attr' => ['class' => 'form']])
@@ -142,19 +170,26 @@ class PersonController extends Controller
                 'person' => $person
             ]);
         }
+    }
 
-        // Address
+    /**
+     * @Route("/{id}/modify_address" , name="modify_address_post" , methods={"POST"})
+     */
+    public function modifyAddressPostAction(Request $request ,$id)
+    {
+        $person = $this->getDoctrine()->getRepository(Person::class)->findOneBy(['id' => $id]);
+        $address = new Address();
         $addressForm = $this->createFormBuilder($address)
             ->setMethod('POST')
             ->add('city',TextType::class)
             ->add('street', TextType::class)
             ->add('houseNumber', NumberType::class)
             ->add('apartamentNumber', NumberType::class)
+            ->add('person_id',$person->getId())
             ->add('save', SubmitType::class, ['attr' => ['class' => 'button']])
             ->getForm();
         $addressForm->handleRequest($request);
         if ($addressForm->isSubmitted() and $addressForm->isValid()) {
-            $address->setPerson($personId);
             $address = $addressForm->getData();
             $em = $this->getDoctrine()->getManager();
             $em->persist($address);
@@ -163,17 +198,24 @@ class PersonController extends Controller
                 'address'=> $address
             ]);
         }
+    }
 
-        // Email
+    /**
+     * @Route("/{id}/modify_email" , name="modify_email_post" , methods={"POST"})
+     */
+    public function modifyEmailPostAction(Request $request ,$id)
+    {
+        $person = $this->getDoctrine()->getRepository(Person::class)->findOneBy(['id' => $id]);
+        $email = new Email();
         $emailForm = $this->createFormBuilder($email)
             ->setMethod('POST')
             ->add('emailAddress',TextType::class)
             ->add('type', TextType::class)
+            ->add('person_id',$person->getId())
             ->add('save', SubmitType::class, [ 'attr' => ['class' => 'button']])
             ->getForm();
         $emailForm->handleRequest($request);
         if ($emailForm->isSubmitted() and $emailForm->isValid()) {
-            $email->setPerson($personId);
             $person = $emailForm->getData();
             $em = $this->getDoctrine()->getManager();
             $em->persist($person);
@@ -182,17 +224,24 @@ class PersonController extends Controller
                 'email' => $email
             ]);
         }
+    }
 
-        //Phone
+    /**
+     * @Route("/{id}/modify_phone" , name="modify_phone_post" , methods={"POST"})
+     */
+    public function modifyPhonePostAction(Request $request ,$id)
+    {
+        $person = $this->getDoctrine()->getRepository(Person::class)->findOneBy(['id' => $id]);
+        $phoneNumber = new PhoneNumber();
         $phoneNumberForm = $this->createFormBuilder($phoneNumber)
             ->setMethod('POST')
             ->add('number', NumberType::class)
             ->add('type', TextType::class)
+            ->add('person_id',$person->getId())
             ->add('save', SubmitType::class, ['attr' => ['class' => 'button']])
             ->getForm();
         $phoneNumberForm->handleRequest($request);
         if ($phoneNumberForm->isSubmitted() and $phoneNumberForm->isValid()) {
-            $phoneNumber->setPerson($personId);
             $person = $phoneNumberForm->getData();
             $em = $this->getDoctrine()->getManager();
             $em->persist($person);
@@ -201,8 +250,10 @@ class PersonController extends Controller
                 'phoneNumber' => $phoneNumber
             ]);
         }
-
     }
+
+
+
 
     /**
      * @Route("/{id}/delete", name="delete" , methods={"GET"})
