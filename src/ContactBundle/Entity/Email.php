@@ -36,13 +36,11 @@ class Email
     private $type;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Person", inversedBy="emails")
+     * @ORM\OneToOne(targetEntity="Person", inversedBy="emails")
      * @ORM\JoinColumn(name="person_id",referencedColumnName="id")
      */
     private $person;
-    public function __construct() {
-        $this->person = new \Doctrine\Common\Collections\ArrayCollection();
-    }
+
 
     /**
      * @return mixed

@@ -36,13 +36,11 @@ class PhoneNumber
     private $type;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Person", inversedBy="phoneNumbers")
+     * @ORM\OneToOne(targetEntity="Person", inversedBy="phoneNumbers")
      * @ORM\JoinColumn(name="person_id", referencedColumnName="id")
      */
     private $person;
-    public function __construct() {
-        $this->person = new \Doctrine\Common\Collections\ArrayCollection();
-    }
+
 
     /**
      * @return mixed

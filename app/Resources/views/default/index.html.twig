@@ -16,7 +16,7 @@
                    class="list">{{ person.name }} {{ person.lastname }}</a>
             </td>
             <td>
-                <a href="{{ path('personal',{'id' : person.id}) }}" class="edit">edit</a>
+                <a href="{{ path('edit',{'id' : person.id}) }}" class="edit">edit</a>
             </td>
             <td>
                 <a href="{{ path('delete',{'id' : person.id}) }}" class="delete">delete</a>

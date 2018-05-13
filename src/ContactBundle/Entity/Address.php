@@ -50,13 +50,11 @@ class Address
     private $apartamentNumber;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Person", inversedBy="addresses")
+     * @ORM\OneToOne(targetEntity="Person", inversedBy="addresses")
      * @ORM\JoinColumn(name="person_id", referencedColumnName="id")
      */
     private $person;
-    public function __construct() {
-        $this->person = new \Doctrine\Common\Collections\ArrayCollection();
-    }
+
 
     /**
      * @return mixed

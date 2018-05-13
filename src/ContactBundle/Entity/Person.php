@@ -43,17 +43,17 @@ class Person
     private $personDescription;
 
     /**
-     * @ORM\OneToMany(targetEntity="Address", mappedBy="person")
+     * @ORM\OneToOne(targetEntity="Address", mappedBy="person")
      */
     private $addresses;
 
     /**
-     * @ORM\OneToMany(targetEntity="Email", mappedBy="person")
+     * @ORM\OneToOne(targetEntity="Email", mappedBy="person")
      */
     private $emails;
 
     /**
-     * @ORM\OneToMany(targetEntity="PhoneNumber", mappedBy="person")
+     * @ORM\OneToOne(targetEntity="PhoneNumber", mappedBy="person")
      */
     private $phoneNumbers;
 
