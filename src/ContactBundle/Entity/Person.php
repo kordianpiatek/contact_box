@@ -2,6 +2,7 @@
 
 namespace ContactBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -43,79 +44,24 @@ class Person
     private $personDescription;
 
     /**
-     * @ORM\OneToOne(targetEntity="Address", mappedBy="person")
+     * @ORM\OneToMany(targetEntity="Address", mappedBy="person")
      */
     private $addresses;
-
     /**
-     * @ORM\OneToOne(targetEntity="Email", mappedBy="person")
+     * @ORM\OneToMany(targetEntity="PhoneNumber", mappedBy="person")
+     */
+    private $phoneNumbers;
+    /**
+     * @ORM\OneToMany(targetEntity="Email", mappedBy="person")
      */
     private $emails;
 
-    /**
-     * @ORM\OneToOne(targetEntity="PhoneNumber", mappedBy="person")
-     */
-    private $phoneNumbers;
-
-    /**
-     * Many Users have Many Groups.
-     * @ORM\ManyToMany(targetEntity="Groups", inversedBy="person")
-     * @ORM\JoinTable(name="person_groups")
-     */
-    private $groups;
-
-    public function __construct() {
-        $this->groups = new \Doctrine\Common\Collections\ArrayCollection();
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getAddresses()
+    public function __construct()
     {
-        return $this->addresses;
+        $this->addresses = new ArrayCollection();
+        $this->emails = new ArrayCollection();
+        $this->phoneNumbers = new ArrayCollection();
     }
-
-    /**
-     * @param mixed $addresses
-     */
-    public function setAddresses($addresses)
-    {
-        $this->addresses = $addresses;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getEmails()
-    {
-        return $this->emails;
-    }
-
-    /**
-     * @param mixed $emails
-     */
-    public function setEmails($emails)
-    {
-        $this->emails = $emails;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getPhoneNumbers()
-    {
-        return $this->phoneNumbers;
-    }
-
-    /**
-     * @param mixed $phoneNumbers
-     */
-    public function setPhoneNumbers($phoneNumbers)
-    {
-        $this->phoneNumbers = $phoneNumbers;
-    }
-
 
     /**
      * Get id
@@ -197,6 +143,97 @@ class Person
     public function getPersonDescription()
     {
         return $this->personDescription;
+    }
+
+    /**
+     * Add phoneNumber
+     *
+     * @param \ContactBundle\Entity\PhoneNumber $phoneNumber
+     *
+     * @return Person
+     */
+    public function addPhone(PhoneNumber $phoneNumber)
+    {
+        $this->phoneNumbers[] = $phoneNumber;
+        return $this;
+    }
+    /**
+     * Delete phoneNumber
+     *
+     * @param \ContactBundle\Entity\PhoneNumber $phoneNumber
+     */
+    public function deletePhoneNumber(PhoneNumber $phoneNumber)
+    {
+        $this->phoneNumbers->removeElement($phoneNumber);
+    }
+    /**
+     * Get phoneNumbers
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getPhone()
+    {
+        return $this->phoneNumbers;
+    }
+    /**
+     * Add email
+     *
+     * @param \ContactBundle\Entity\Email $email
+     *
+     * @return Person
+     */
+    public function addEmail(Email $emailAddress)
+    {
+        $this->emails[] = $emailAddress;
+        return $this;
+    }
+    /**
+     * Remove email
+     *
+     * @param \ContactBundle\Entity\Email $email
+     */
+    public function deleteEmail(Email $emailAddress)
+    {
+        $this->emails->removeElement($emailAddress);
+    }
+    /**
+     * Get emails
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getEmails()
+    {
+        return $this->emails;
+    }
+    /**
+     * Add address
+     *
+     * @param \ContactBundle\Entity\Address $address
+     *
+     * @return Person
+     */
+    public function addAddres(Address $address)
+    {
+        $this->addresses[] = $address;
+        return $this;
+    }
+    /**
+     * Remove address
+     *
+     * @param \ContactBundle\Entity\Address $address
+     */
+    public function removeAddress(Address $address)
+    {
+        $this->addresses->removeElement($address);
+    }
+    /**
+     * Get addresses
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getAddresses()
+    {
+        return $this->addresses;
     }
 }
 

@@ -1,0 +1,11 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Deleted{% endblock %}
+
+{% block body %}
+    <div class="navbar">
+        <a href="{{ path('home') }}">Home</a>
+        <a href="{{ path('new_person') }}">Add</a>
+    </div>
+    <h1>You have deleted contact {{ person.name }} {{ person.lastname }}</h1>
+{% endblock %}

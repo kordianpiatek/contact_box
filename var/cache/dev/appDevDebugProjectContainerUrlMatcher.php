@@ -107,7 +107,103 @@ class appDevDebugProjectContainerUrlMatcher extends Symfony\Bundle\FrameworkBund
 
         }
 
-        elseif (0 === strpos($pathinfo, '/new')) {
+        // edit
+        if (preg_match('#^/(?P<id>[^/]++)/modify$#sD', $pathinfo, $matches)) {
+            $ret = $this->mergeDefaults(array_replace($matches, array('_route' => 'edit')), array (  '_controller' => 'ContactBundle\\Controller\\AddressesController::modifyPersonGetAction',));
+            if (!in_array($canonicalMethod, array('GET'))) {
+                $allow = array_merge($allow, array('GET'));
+                goto not_edit;
+            }
+
+            return $ret;
+        }
+        not_edit:
+
+        // address_edit
+        if (preg_match('#^/(?P<id>[^/]++)/modify_address$#sD', $pathinfo, $matches)) {
+            $ret = $this->mergeDefaults(array_replace($matches, array('_route' => 'address_edit')), array (  '_controller' => 'ContactBundle\\Controller\\AddressesController::modifyAddressGetAction',));
+            if (!in_array($canonicalMethod, array('GET'))) {
+                $allow = array_merge($allow, array('GET'));
+                goto not_address_edit;
+            }
+
+            return $ret;
+        }
+        not_address_edit:
+
+        // email_edit
+        if (preg_match('#^/(?P<id>[^/]++)/modify_email$#sD', $pathinfo, $matches)) {
+            $ret = $this->mergeDefaults(array_replace($matches, array('_route' => 'email_edit')), array (  '_controller' => 'ContactBundle\\Controller\\AddressesController::modifyEmailGetAction',));
+            if (!in_array($canonicalMethod, array('GET'))) {
+                $allow = array_merge($allow, array('GET'));
+                goto not_email_edit;
+            }
+
+            return $ret;
+        }
+        not_email_edit:
+
+        // phone_edit
+        if (preg_match('#^/(?P<id>[^/]++)/modify_phone$#sD', $pathinfo, $matches)) {
+            $ret = $this->mergeDefaults(array_replace($matches, array('_route' => 'phone_edit')), array (  '_controller' => 'ContactBundle\\Controller\\AddressesController::modifyPhoneGetAction',));
+            if (!in_array($canonicalMethod, array('GET'))) {
+                $allow = array_merge($allow, array('GET'));
+                goto not_phone_edit;
+            }
+
+            return $ret;
+        }
+        not_phone_edit:
+
+        // modifyPost
+        if (preg_match('#^/(?P<id>[^/]++)/modify$#sD', $pathinfo, $matches)) {
+            $ret = $this->mergeDefaults(array_replace($matches, array('_route' => 'modifyPost')), array (  '_controller' => 'ContactBundle\\Controller\\AddressesController::modifyPersonPostAction',));
+            if (!in_array($requestMethod, array('POST'))) {
+                $allow = array_merge($allow, array('POST'));
+                goto not_modifyPost;
+            }
+
+            return $ret;
+        }
+        not_modifyPost:
+
+        // modify_address_post
+        if (preg_match('#^/(?P<id>[^/]++)/modify_address$#sD', $pathinfo, $matches)) {
+            $ret = $this->mergeDefaults(array_replace($matches, array('_route' => 'modify_address_post')), array (  '_controller' => 'ContactBundle\\Controller\\AddressesController::modifyAddressPostAction',));
+            if (!in_array($requestMethod, array('POST'))) {
+                $allow = array_merge($allow, array('POST'));
+                goto not_modify_address_post;
+            }
+
+            return $ret;
+        }
+        not_modify_address_post:
+
+        // modify_email_post
+        if (preg_match('#^/(?P<id>[^/]++)/modify_email$#sD', $pathinfo, $matches)) {
+            $ret = $this->mergeDefaults(array_replace($matches, array('_route' => 'modify_email_post')), array (  '_controller' => 'ContactBundle\\Controller\\AddressesController::modifyEmailPostAction',));
+            if (!in_array($requestMethod, array('POST'))) {
+                $allow = array_merge($allow, array('POST'));
+                goto not_modify_email_post;
+            }
+
+            return $ret;
+        }
+        not_modify_email_post:
+
+        // modify_phone_post
+        if (preg_match('#^/(?P<id>[^/]++)/modify_phone$#sD', $pathinfo, $matches)) {
+            $ret = $this->mergeDefaults(array_replace($matches, array('_route' => 'modify_phone_post')), array (  '_controller' => 'ContactBundle\\Controller\\AddressesController::modifyPhonePostAction',));
+            if (!in_array($requestMethod, array('POST'))) {
+                $allow = array_merge($allow, array('POST'));
+                goto not_modify_phone_post;
+            }
+
+            return $ret;
+        }
+        not_modify_phone_post:
+
+        if (0 === strpos($pathinfo, '/new')) {
             // new_person
             if ('/new' === $pathinfo) {
                 $ret = array (  '_controller' => 'ContactBundle\\Controller\\PersonController::newPersonGetAction',  '_route' => 'new_person',);
@@ -133,102 +229,6 @@ class appDevDebugProjectContainerUrlMatcher extends Symfony\Bundle\FrameworkBund
             not_contact_person_newpersonpost:
 
         }
-
-        // edit
-        if (preg_match('#^/(?P<id>[^/]++)/modify$#sD', $pathinfo, $matches)) {
-            $ret = $this->mergeDefaults(array_replace($matches, array('_route' => 'edit')), array (  '_controller' => 'ContactBundle\\Controller\\PersonController::modifyPersonGetAction',));
-            if (!in_array($canonicalMethod, array('GET'))) {
-                $allow = array_merge($allow, array('GET'));
-                goto not_edit;
-            }
-
-            return $ret;
-        }
-        not_edit:
-
-        // address_edit
-        if (preg_match('#^/(?P<id>[^/]++)/modify_address$#sD', $pathinfo, $matches)) {
-            $ret = $this->mergeDefaults(array_replace($matches, array('_route' => 'address_edit')), array (  '_controller' => 'ContactBundle\\Controller\\PersonController::modifyAddressGetAction',));
-            if (!in_array($canonicalMethod, array('GET'))) {
-                $allow = array_merge($allow, array('GET'));
-                goto not_address_edit;
-            }
-
-            return $ret;
-        }
-        not_address_edit:
-
-        // email_edit
-        if (preg_match('#^/(?P<id>[^/]++)/modify_email$#sD', $pathinfo, $matches)) {
-            $ret = $this->mergeDefaults(array_replace($matches, array('_route' => 'email_edit')), array (  '_controller' => 'ContactBundle\\Controller\\PersonController::modifyEmailGetAction',));
-            if (!in_array($canonicalMethod, array('GET'))) {
-                $allow = array_merge($allow, array('GET'));
-                goto not_email_edit;
-            }
-
-            return $ret;
-        }
-        not_email_edit:
-
-        // phone_edit
-        if (preg_match('#^/(?P<id>[^/]++)/modify_phone$#sD', $pathinfo, $matches)) {
-            $ret = $this->mergeDefaults(array_replace($matches, array('_route' => 'phone_edit')), array (  '_controller' => 'ContactBundle\\Controller\\PersonController::modifyPhoneGetAction',));
-            if (!in_array($canonicalMethod, array('GET'))) {
-                $allow = array_merge($allow, array('GET'));
-                goto not_phone_edit;
-            }
-
-            return $ret;
-        }
-        not_phone_edit:
-
-        // modifyPost
-        if (preg_match('#^/(?P<id>[^/]++)/modify$#sD', $pathinfo, $matches)) {
-            $ret = $this->mergeDefaults(array_replace($matches, array('_route' => 'modifyPost')), array (  '_controller' => 'ContactBundle\\Controller\\PersonController::modifyPersonPostAction',));
-            if (!in_array($requestMethod, array('POST'))) {
-                $allow = array_merge($allow, array('POST'));
-                goto not_modifyPost;
-            }
-
-            return $ret;
-        }
-        not_modifyPost:
-
-        // modify_address_post
-        if (preg_match('#^/(?P<id>[^/]++)/modify_address$#sD', $pathinfo, $matches)) {
-            $ret = $this->mergeDefaults(array_replace($matches, array('_route' => 'modify_address_post')), array (  '_controller' => 'ContactBundle\\Controller\\PersonController::modifyAddressPostAction',));
-            if (!in_array($requestMethod, array('POST'))) {
-                $allow = array_merge($allow, array('POST'));
-                goto not_modify_address_post;
-            }
-
-            return $ret;
-        }
-        not_modify_address_post:
-
-        // modify_email_post
-        if (preg_match('#^/(?P<id>[^/]++)/modify_email$#sD', $pathinfo, $matches)) {
-            $ret = $this->mergeDefaults(array_replace($matches, array('_route' => 'modify_email_post')), array (  '_controller' => 'ContactBundle\\Controller\\PersonController::modifyEmailPostAction',));
-            if (!in_array($requestMethod, array('POST'))) {
-                $allow = array_merge($allow, array('POST'));
-                goto not_modify_email_post;
-            }
-
-            return $ret;
-        }
-        not_modify_email_post:
-
-        // modify_phone_post
-        if (preg_match('#^/(?P<id>[^/]++)/modify_phone$#sD', $pathinfo, $matches)) {
-            $ret = $this->mergeDefaults(array_replace($matches, array('_route' => 'modify_phone_post')), array (  '_controller' => 'ContactBundle\\Controller\\PersonController::modifyPhonePostAction',));
-            if (!in_array($requestMethod, array('POST'))) {
-                $allow = array_merge($allow, array('POST'));
-                goto not_modify_phone_post;
-            }
-
-            return $ret;
-        }
-        not_modify_phone_post:
 
         // delete
         if (preg_match('#^/(?P<id>[^/]++)/delete$#sD', $pathinfo, $matches)) {

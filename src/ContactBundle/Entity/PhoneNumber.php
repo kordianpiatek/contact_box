@@ -36,26 +36,31 @@ class PhoneNumber
     private $type;
 
     /**
-     * @ORM\OneToOne(targetEntity="Person", inversedBy="phoneNumbers")
-     * @ORM\JoinColumn(name="person_id", referencedColumnName="id")
+     * @ORM\ManyToOne(targetEntity="Person", inversedBy="phoneNumbers")
+     * @ORM\JoinColumn(name="person_id", referencedColumnName="id", onDelete="CASCADE")
      */
     private $person;
 
-
     /**
-     * @return mixed
+     * Set person
+     *
+     * @param \ContactBundle\Entity\Person $person
+     *
+     * @return PhoneNumber
+     */
+    public function setPerson(\ContactBundle\Entity\Person $person = null)
+    {
+        $this->person = $person;
+        return $this;
+    }
+    /**
+     * Get person
+     *
+     * @return \ContactBundle\Entity\Person
      */
     public function getPerson()
     {
         return $this->person;
-    }
-
-    /**
-     * @param mixed $person
-     */
-    public function setPerson($person)
-    {
-        $this->person = $person;
     }
 
 

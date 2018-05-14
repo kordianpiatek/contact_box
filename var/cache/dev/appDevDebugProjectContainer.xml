@@ -523,7 +523,7 @@
     </service>
     <service id="argument_resolver.service" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\ServiceValueResolver" public="false">
       <tag name="controller.argument_value_resolver" priority="-50"/>
-      <argument type="service" id="service_locator.g4fuczm"/>
+      <argument type="service" id="service_locator.sr6ctxe"/>
     </service>
     <service id="argument_resolver.default" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\DefaultValueResolver" public="false">
       <tag name="controller.argument_value_resolver" priority="-100"/>
@@ -3568,11 +3568,7 @@
     <service id="abstract.instanceof.ContactBundle\Controller\AddressesController" class="ContactBundle\Controller\AddressesController" public="true" autowire="true" autoconfigure="true" abstract="true"/>
     <service id="instanceof.Symfony\Bundle\FrameworkBundle\Controller\Controller.0.ContactBundle\Controller\PersonController" class="ContactBundle\Controller\PersonController" public="true" autowire="true" abstract="true"/>
     <service id="abstract.instanceof.ContactBundle\Controller\PersonController" class="ContactBundle\Controller\PersonController" public="true" autowire="true" autoconfigure="true" abstract="true"/>
-    <service id="service_locator.swnvuzx" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
-      <tag name="container.service_locator"/>
-      <argument type="collection"/>
-    </service>
-    <service id="service_locator.g4fuczm" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+    <service id="service_locator.sr6ctxe" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
       <tag name="container.service_locator"/>
       <argument type="collection"/>
     </service>
@@ -3799,10 +3795,6 @@
       </call>
     </service>
     <service id="monolog.handler.null_internal" class="Monolog\Handler\NullHandler"/>
-    <service id="service_locator.sr6ctxe" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
-      <tag name="container.service_locator"/>
-      <argument type="collection"/>
-    </service>
     <service id="debug.validator.inner" class="Symfony\Component\Validator\Validator\ValidatorInterface" public="false">
       <factory service="validator.builder" method="getValidator"/>
     </service>

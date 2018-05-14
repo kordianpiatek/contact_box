@@ -36,26 +36,32 @@ class Email
     private $type;
 
     /**
-     * @ORM\OneToOne(targetEntity="Person", inversedBy="emails")
-     * @ORM\JoinColumn(name="person_id",referencedColumnName="id")
+     * @ORM\ManyToOne(targetEntity="Person", inversedBy="emails")
+     * @ORM\JoinColumn(name="person_id", referencedColumnName="id", onDelete="CASCADE")
      */
     private $person;
 
 
     /**
-     * @return mixed
+     * Set person
+     *
+     * @param \ContactBundle\Entity\Person $person
+     *
+     * @return Email
+     */
+    public function setPerson(Person $person = null)
+    {
+        $this->person = $person;
+        return $this;
+    }
+    /**
+     * Get person
+     *
+     * @return \ContactBundle\Entity\Person
      */
     public function getPerson()
     {
         return $this->person;
-    }
-
-    /**
-     * @param mixed $person
-     */
-    public function setPerson($person)
-    {
-        $this->person = $person;
     }
 
 

@@ -11,21 +11,28 @@
             <div>{{ person.name }} {{ person.lastname }}</div><br>
             <div>{{ person.personDescription }}</div>
         <div>
-            {{ address.city }}
-            {{ address.street }}
-            {{ address.houseNumber }}
-            {{ address.apartamentNumber }}
-            <a href="{{ path('delete_address', {'pid':person.id} , 'id':address.id) }}">Delete address</a>
+            {% for address in person.addresses %}
+                <div>
+                    {{ address.city }}//{{ address.street }}//{{ address.houseNumber }}//{{ address.apartamentNumber }}
+                    <a href="{{ path('delete_address', {'pid':person.id} , 'id':address.id) }}">Delete address</a>
+                </div>
+                {% endfor %}
         </div>
         <div>
-            {{ email.emailAddress }}
-            {{ email.type }}
-            <a href="{{ path('delete_email', {'pid':person.id} , 'id':email.id) }}">Delete email</a>
+            {% for email in person.emails %}
+                <div>
+                    {{ email.emailAddress }}//{{ email.type }}
+                    <a href="{{ path('delete_email', {'pid':person.id} , 'id':email.id) }}">Delete email</a>
+                </div>
+                {% endfor %}
         </div>
         <div>
-            {{ phone.number }}
-            {{ phone.type }}
-            <a href="{{ path('delete_phone', {'pid':person.id} , 'id':phone.id) }}">Delete phone</a>
+            {% for phoneNumber in person.phoneNumbers %}
+                <div>
+                    {{ phoneNumber.number }}//{{ phoneNumber.type }}
+                    <a href="{{ path('delete_phone', {'pid':person.id} , 'id':phoneNumber.id) }}">Delete phone</a>
+                </div>
+                {% endfor %}
         </div>
     </div>
 {% endblock %}

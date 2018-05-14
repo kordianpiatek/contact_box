@@ -50,26 +50,32 @@ class Address
     private $apartamentNumber;
 
     /**
-     * @ORM\OneToOne(targetEntity="Person", inversedBy="addresses")
-     * @ORM\JoinColumn(name="person_id", referencedColumnName="id")
+     * @ORM\ManyToOne(targetEntity="Person", inversedBy="addresses")
+     * @ORM\JoinColumn(name="person_id", referencedColumnName="id", onDelete="CASCADE")
      */
     private $person;
 
 
     /**
-     * @return mixed
+     * Set person
+     *
+     * @param \ContactBundle\Entity\Person $person
+     *
+     * @return Address
+     */
+    public function setPerson(Person $person = null)
+    {
+        $this->person = $person;
+        return $this;
+    }
+    /**
+     * Get person
+     *
+     * @return \ContactBundle\Entity\Person
      */
     public function getPerson()
     {
         return $this->person;
-    }
-
-    /**
-     * @param mixed $person
-     */
-    public function setPerson($person)
-    {
-        $this->person = $person;
     }
 
     /**
