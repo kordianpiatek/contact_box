@@ -77,21 +77,89 @@ class __TwigTemplate_d6be0c8d6aa0a495a51d6a18b54c64ba28fe6856b96a73ff487849bd551
         // line 7
         echo $this->env->getExtension('Symfony\Bridge\Twig\Extension\RoutingExtension')->getPath("new_person");
         echo "\">Add</a>
-        ";
-        // line 9
-        echo "
+
     </div>
     <div>
             <div>";
-        // line 12
+        // line 11
         echo twig_escape_filter($this->env, $this->getAttribute(($context["person"] ?? $this->getContext($context, "person")), "name", array()), "html", null, true);
         echo " ";
         echo twig_escape_filter($this->env, $this->getAttribute(($context["person"] ?? $this->getContext($context, "person")), "lastname", array()), "html", null, true);
         echo "</div><br>
             <div>";
-        // line 13
+        // line 12
         echo twig_escape_filter($this->env, $this->getAttribute(($context["person"] ?? $this->getContext($context, "person")), "personDescription", array()), "html", null, true);
         echo "</div>
+        <div>
+            ";
+        // line 14
+        $context['_parent'] = $context;
+        $context['_seq'] = twig_ensure_traversable($this->getAttribute(($context["person"] ?? $this->getContext($context, "person")), "addresses", array()));
+        foreach ($context['_seq'] as $context["_key"] => $context["address"]) {
+            // line 15
+            echo "                <div>
+                    ";
+            // line 16
+            echo twig_escape_filter($this->env, $this->getAttribute($context["address"], "city", array()), "html", null, true);
+            echo "//";
+            echo twig_escape_filter($this->env, $this->getAttribute($context["address"], "street", array()), "html", null, true);
+            echo "//";
+            echo twig_escape_filter($this->env, $this->getAttribute($context["address"], "houseNumber", array()), "html", null, true);
+            echo "//";
+            echo twig_escape_filter($this->env, $this->getAttribute($context["address"], "apartamentNumber", array()), "html", null, true);
+            echo "
+                </div>
+                ";
+        }
+        $_parent = $context['_parent'];
+        unset($context['_seq'], $context['_iterated'], $context['_key'], $context['address'], $context['_parent'], $context['loop']);
+        $context = array_intersect_key($context, $_parent) + $_parent;
+        // line 19
+        echo "        </div>
+        <div>
+            ";
+        // line 21
+        $context['_parent'] = $context;
+        $context['_seq'] = twig_ensure_traversable($this->getAttribute(($context["person"] ?? $this->getContext($context, "person")), "emails", array()));
+        foreach ($context['_seq'] as $context["_key"] => $context["email"]) {
+            // line 22
+            echo "                <div>
+                    ";
+            // line 23
+            echo twig_escape_filter($this->env, $this->getAttribute($context["email"], "emailAddress", array()), "html", null, true);
+            echo "//";
+            echo twig_escape_filter($this->env, $this->getAttribute($context["email"], "type", array()), "html", null, true);
+            echo "
+                </div>
+                ";
+        }
+        $_parent = $context['_parent'];
+        unset($context['_seq'], $context['_iterated'], $context['_key'], $context['email'], $context['_parent'], $context['loop']);
+        $context = array_intersect_key($context, $_parent) + $_parent;
+        // line 26
+        echo "        </div>
+        <div>
+            ";
+        // line 28
+        $context['_parent'] = $context;
+        $context['_seq'] = twig_ensure_traversable($this->getAttribute(($context["person"] ?? $this->getContext($context, "person")), "phoneNumbers", array()));
+        foreach ($context['_seq'] as $context["_key"] => $context["phone"]) {
+            // line 29
+            echo "                <div>
+                    ";
+            // line 30
+            echo twig_escape_filter($this->env, $this->getAttribute($context["phone"], "number", array()), "html", null, true);
+            echo "//";
+            echo twig_escape_filter($this->env, $this->getAttribute($context["phone"], "type", array()), "html", null, true);
+            echo "
+                </div>
+                ";
+        }
+        $_parent = $context['_parent'];
+        unset($context['_seq'], $context['_iterated'], $context['_key'], $context['phone'], $context['_parent'], $context['loop']);
+        $context = array_intersect_key($context, $_parent) + $_parent;
+        // line 33
+        echo "        </div>
     </div>
 ";
         
@@ -114,7 +182,7 @@ class __TwigTemplate_d6be0c8d6aa0a495a51d6a18b54c64ba28fe6856b96a73ff487849bd551
 
     public function getDebugInfo()
     {
-        return array (  93 => 13,  87 => 12,  82 => 9,  78 => 7,  74 => 6,  71 => 5,  62 => 4,  41 => 3,  11 => 1,);
+        return array (  162 => 33,  151 => 30,  148 => 29,  144 => 28,  140 => 26,  129 => 23,  126 => 22,  122 => 21,  118 => 19,  103 => 16,  100 => 15,  96 => 14,  91 => 12,  85 => 11,  78 => 7,  74 => 6,  71 => 5,  62 => 4,  41 => 3,  11 => 1,);
     }
 
     /** @deprecated since 1.27 (to be removed in 2.0). Use getSourceContext() instead */
@@ -134,12 +202,32 @@ class __TwigTemplate_d6be0c8d6aa0a495a51d6a18b54c64ba28fe6856b96a73ff487849bd551
     <div class=\"navbar\">
         <a href=\"{{ path('home') }}\">Home</a>
         <a href=\"{{ path('new_person') }}\">Add</a>
-        {#<a href=\"{{ path('search') }}\">Search</a>#}
 
     </div>
     <div>
             <div>{{ person.name }} {{ person.lastname }}</div><br>
             <div>{{ person.personDescription }}</div>
+        <div>
+            {% for address in person.addresses %}
+                <div>
+                    {{ address.city }}//{{ address.street }}//{{ address.houseNumber }}//{{ address.apartamentNumber }}
+                </div>
+                {% endfor %}
+        </div>
+        <div>
+            {% for email in person.emails %}
+                <div>
+                    {{ email.emailAddress }}//{{ email.type }}
+                </div>
+                {% endfor %}
+        </div>
+        <div>
+            {% for phone in person.phoneNumbers %}
+                <div>
+                    {{ phone.number }}//{{ phone.type }}
+                </div>
+                {% endfor %}
+        </div>
     </div>
 {% endblock %}", "contact/profile.html.twig", "/home/kordianpiatek/Workspace/contact_box/app/Resources/views/contact/profile.html.twig");
     }

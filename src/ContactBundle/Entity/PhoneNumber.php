@@ -48,7 +48,7 @@ class PhoneNumber
      *
      * @return PhoneNumber
      */
-    public function setPerson(\ContactBundle\Entity\Person $person = null)
+    public function setPerson(Person $person = null)
     {
         $this->person = $person;
         return $this;

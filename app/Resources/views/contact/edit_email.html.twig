@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="navbar">
+        <a href="{{ path('home') }}">Home</a>
+        <a href="{{ path('new_person') }}">Add</a>
+        {#<a href="{{ path('search') }}">Search</a>#}
+
+    </div>
+    <div class="navedit">
+        <a href="{{ path('edit',{'id' : person.id}) }}">Personal Data</a>
+        <a href="{{ path('address_edit',{'id' : person.id}) }}">Address</a>
+        <a href="{{ path('phone_edit',{'id' : person.id}) }}">Phone Number</a>
+
+    </div>
+    <div class="modify">
+        <h2>Email</h2>
+        {{ form_start(emailForm) }}
+        <div class="form">
+            {{ form_label(emailForm.emailAddress) }}
+            {{ form_widget(emailForm.emailAddress) }}
+        </div>
+        <div class="form">
+            {{ form_label(emailForm.type) }}
+            {{ form_widget(emailForm.type) }}
+        </div>
+        {{ form_widget(emailForm) }}
+        {{ form_end(emailForm) }}
+
+        --------------------------------------------------------------------------------------
+
+    </div>
+{% endblock %}

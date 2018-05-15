@@ -146,56 +146,40 @@ class Person
     }
 
     /**
-     * Add phoneNumber
+     * Set phoneNumber
      *
      * @param \ContactBundle\Entity\PhoneNumber $phoneNumber
      *
      * @return Person
      */
-    public function addPhone(PhoneNumber $phoneNumber)
+    public function setPhoneNumber(PhoneNumber $phoneNumber)
     {
         $this->phoneNumbers[] = $phoneNumber;
         return $this;
     }
-    /**
-     * Delete phoneNumber
-     *
-     * @param \ContactBundle\Entity\PhoneNumber $phoneNumber
-     */
-    public function deletePhoneNumber(PhoneNumber $phoneNumber)
-    {
-        $this->phoneNumbers->removeElement($phoneNumber);
-    }
+
     /**
      * Get phoneNumbers
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getPhone()
+    public function getPhoneNumbers()
     {
         return $this->phoneNumbers;
     }
     /**
-     * Add email
+     * Set email
      *
      * @param \ContactBundle\Entity\Email $email
      *
      * @return Person
      */
-    public function addEmail(Email $emailAddress)
+    public function setEmail(Email $emailAddress)
     {
         $this->emails[] = $emailAddress;
         return $this;
     }
-    /**
-     * Remove email
-     *
-     * @param \ContactBundle\Entity\Email $email
-     */
-    public function deleteEmail(Email $emailAddress)
-    {
-        $this->emails->removeElement($emailAddress);
-    }
+
     /**
      * Get emails
      *
@@ -206,26 +190,18 @@ class Person
         return $this->emails;
     }
     /**
-     * Add address
+     * Set address
      *
      * @param \ContactBundle\Entity\Address $address
      *
      * @return Person
      */
-    public function addAddres(Address $address)
+    public function setAddress(Address $address)
     {
         $this->addresses[] = $address;
         return $this;
     }
-    /**
-     * Remove address
-     *
-     * @param \ContactBundle\Entity\Address $address
-     */
-    public function removeAddress(Address $address)
-    {
-        $this->addresses->removeElement($address);
-    }
+
     /**
      * Get addresses
      *
